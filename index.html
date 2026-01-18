@@ -468,6 +468,65 @@
         .music-hint.hidden {
             display: none;
         }
+
+        /* Contador */
+        .countdown {
+            margin-top: 30px;
+            padding: 20px;
+        }
+
+        .countdown-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1rem;
+            color: #D4A03D;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .countdown-boxes {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .countdown-box {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 245, 225, 0.8) 100%);
+            border-radius: 15px;
+            padding: 15px 12px;
+            min-width: 60px;
+            border: 2px dashed #D4A03D;
+        }
+
+        .countdown-value {
+            font-family: 'Nunito', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #8B4513;
+        }
+
+        .countdown-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.65rem;
+            color: #B8860B;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        @media (max-width: 400px) {
+            .countdown-box {
+                min-width: 50px;
+                padding: 10px 8px;
+            }
+
+            .countdown-value {
+                font-size: 1.2rem;
+            }
+
+            .countdown-label {
+                font-size: 0.55rem;
+            }
+        }
     </style>
 </head>
 
@@ -545,13 +604,52 @@
             </button>
         </div>
 
+        <!-- Contador -->
+        <div class="countdown">
+            <p class="countdown-title">FALTA POUCO!</p>
+            <div class="countdown-boxes">
+                <div class="countdown-box">
+                    <div class="countdown-value" id="dias">00</div>
+                    <div class="countdown-label">Dias</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="horas">00</div>
+                    <div class="countdown-label">Horas</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="minutos">00</div>
+                    <div class="countdown-label">Min</div>
+                </div>
+                <div class="countdown-box">
+                    <div class="countdown-value" id="segundos">00</div>
+                    <div class="countdown-label">Seg</div>
+                </div>
+            </div>
+        </div>
+
         <!-- Hakuna Matata Final -->
         <p class="hakuna-matata" style="margin-top: 30px; margin-bottom: 0;">HAKUNA MATATA!</p>
 
     </div>
 
+    <!-- Texto e Botão de Música -->
+    <div id="music-hint" class="music-hint">Toque na tela</div>
+    <button id="music-toggle" class="music-toggle muted" onclick="toggleMusica()">
+        <svg class="icon-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <svg class="icon-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+    </button>
+
+    <!-- Savana Footer -->
+    <div class="savana-footer">
+        <img src="imagens/savana.png" alt="Savana">
+    </div>
+
     <script>
-        // Add sparkle effects
+        // Sparkles
         function createSparkle() {
             const container = document.querySelector('.container');
             const sparkle = document.createElement('div');
@@ -560,14 +658,11 @@
             sparkle.style.top = Math.random() * 100 + '%';
             sparkle.style.animationDelay = Math.random() * 2 + 's';
             container.appendChild(sparkle);
-
             setTimeout(() => sparkle.remove(), 2000);
         }
-
-        // Create sparkles periodically
         setInterval(createSparkle, 500);
 
-        // Música de fundo
+        // Música
         const musica = document.getElementById('musica-fundo');
         const musicToggle = document.getElementById('music-toggle');
         const musicHint = document.getElementById('music-hint');
@@ -585,7 +680,53 @@
             }
         }
 
-        // Modal de Curiosidade
+        // Tenta autoplay
+        musica.play().then(() => {
+            musicToggle.classList.remove('muted');
+            musicHint.classList.add('hidden');
+        }).catch(() => {});
+
+        // Toca música ao tocar na tela (para mobile)
+        document.addEventListener('click', function iniciarMusica() {
+            if (musica.paused) {
+                musica.play().then(() => {
+                    musicToggle.classList.remove('muted');
+                    musicHint.classList.add('hidden');
+                }).catch(() => {});
+            }
+            document.removeEventListener('click', iniciarMusica);
+        });
+
+        // Contador - 8 de março de 2026 às 16h
+        const dataFesta = new Date('2026-03-08T16:00:00');
+
+        function atualizarContador() {
+            const agora = new Date();
+            const diferenca = dataFesta - agora;
+
+            if (diferenca <= 0) {
+                document.getElementById('dias').textContent = '00';
+                document.getElementById('horas').textContent = '00';
+                document.getElementById('minutos').textContent = '00';
+                document.getElementById('segundos').textContent = '00';
+                return;
+            }
+
+            const dias = Math.floor(diferenca / (1000 * 60 * 60 * 24));
+            const horas = Math.floor((diferenca % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutos = Math.floor((diferenca % (1000 * 60 * 60)) / (1000 * 60));
+            const segundos = Math.floor((diferenca % (1000 * 60)) / 1000);
+
+            document.getElementById('dias').textContent = dias.toString().padStart(2, '0');
+            document.getElementById('horas').textContent = horas.toString().padStart(2, '0');
+            document.getElementById('minutos').textContent = minutos.toString().padStart(2, '0');
+            document.getElementById('segundos').textContent = segundos.toString().padStart(2, '0');
+        }
+
+        atualizarContador();
+        setInterval(atualizarContador, 1000);
+
+        // Modal Curiosidade
         function mostrarCuriosidade() {
             Swal.fire({
                 title: '🦁 Você sabia?',
@@ -593,32 +734,10 @@
                 confirmButtonText: 'Que legal!',
                 confirmButtonColor: '#D4A03D',
                 background: 'linear-gradient(145deg, #FFF8E7 0%, #FAEDDD 100%)',
-                color: '#8B4513',
-                showClass: {
-                    popup: 'animate__animated animate__fadeInDown'
-                },
-                hideClass: {
-                    popup: 'animate__animated animate__fadeOutUp'
-                }
+                color: '#8B4513'
             });
         }
     </script>
-
-    <!-- Texto e Botão de Música -->
-    <div id="music-hint" class="music-hint">Toque aqui</div>
-    <button id="music-toggle" class="music-toggle muted" onclick="toggleMusica()">
-        <svg class="icon-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-        </svg>
-        <svg class="icon-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-        </svg>
-    </button>
-
-    <!-- Savana Footer -->
-    <div class="savana-footer">
-        <img src="imagens/savana.png" alt="Savana">
-    </div>
 </body>
 
 </html>
