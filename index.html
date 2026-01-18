@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Festinha do Liam Gabriel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Fredoka+One&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: #C8ECFB;
+            background: linear-gradient(180deg, rgba(200, 236, 251, 1) 0%, rgba(250, 237, 221, 1) 100%);
+            font-family: 'Nunito', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Banner no topo */
+        .banner-top {
+            width: 100%;
+            max-width: 450px;
+            margin: 0 auto 10px auto;
+        }
+
+        /* Hakuna Matata Title */
+        .hakuna-matata {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.6rem;
+            color: #D4A03D;
+            letter-spacing: 5px;
+            margin-bottom: 15px;
+            margin-top: -10%;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Scene Container */
+        .scene {
+            position: relative;
+            width: 100%;
+            height: 450px;
+            margin-bottom: 30px;
+        }
+
+        /* Arbustos */
+        .arbusto-back {
+            position: absolute;
+            bottom: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180%;
+            max-width: 900px;
+            opacity: 0.3;
+            filter: blur(3px) saturate(0.6);
+            z-index: 1;
+        }
+
+        .arbusto-front {
+            position: absolute;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250%;
+            max-width: 750px;
+            z-index: 2;
+        }
+
+        /* Personagens */
+        .personagens {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            min-width: 300px;
+            z-index: 3;
+            animation: float 3s ease-in-out infinite;
+           top: 1%;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-8px); }
+        }
+
+        /* Intro Message */
+        .intro-message {
+            font-size: 1.1rem;
+            color: #8B4513;
+            line-height: 1.6;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        /* Celebration Text */
+        .celebration-text {
+            margin-bottom: 10px;
+        }
+
+        .celebration-text h2 {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #8B4513;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-align: center;
+            padding: 0 10px;
+        }
+
+
+        /* KPIs Container */
+        .kpis-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .kpis-row {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .kpi {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 245, 225, 0.8) 100%);
+            border-radius: 20px;
+            padding: 20px 25px;
+            border: 2px dashed #D4A03D;
+            text-align: center;
+        }
+
+        .kpi-label {
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.75rem;
+            color: #8B4513;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .kpi-value {
+            font-size: 1.1rem;
+            color: #8B4513;
+            line-height: 1.4;
+            font-weight: 600;
+        }
+
+        .kpi-small {
+            flex: 1;
+        }
+
+        .kpi-large {
+            width: 100%;
+            margin: 0 auto;
+            display: inline-block;
+        }
+
+        /* Final Message */
+        .final-message {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 245, 225, 0.8) 100%);
+            border-radius: 25px;
+            padding: 25px 30px;
+            margin-top: 30px;
+            border: 2px dashed #D4A03D;
+        }
+
+        .final-message p {
+            font-size: 1.1rem;
+            color: #8B4513;
+            line-height: 1.6;
+            font-weight: 600;
+        }
+
+        /* Savana Footer */
+        .savana-footer {
+            width: 100%;
+            margin-top: 40px;
+        }
+
+        .savana-footer img {
+            width: 100%;
+            display: block;
+        }
+
+        /* Decorative Elements */
+        .sparkle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: radial-gradient(circle, #FFD700 0%, transparent 70%);
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        /* Zazu Flying */
+        .zazu-container {
+            position: fixed;
+            top: 20px;
+            left: -80px;
+            width: 80px;
+            height: 60px;
+            z-index: 100;
+            animation: voar 8s linear infinite;
+        }
+
+        .zazu-container img {
+            position: absolute;
+            width: 100%;
+            height: auto;
+        }
+
+        .zazu-asa-meio {
+            animation: asas-meio 0.5s ease-in-out infinite;
+        }
+
+        .zazu-asa-cima {
+            opacity: 0;
+            animation: asas-cima 0.5s ease-in-out infinite;
+        }
+
+        @keyframes voar {
+            0% {
+                left: -80px;
+                top: 20px;
+                transform: scaleX(-1);
+            }
+            45% {
+                left: calc(100% + 80px);
+                top: 50px;
+                transform: scaleX(-1);
+            }
+            50% {
+                left: calc(100% + 80px);
+                top: 50px;
+                transform: scaleX(1);
+            }
+            95% {
+                left: -80px;
+                top: 20px;
+                transform: scaleX(1);
+            }
+            100% {
+                left: -80px;
+                top: 20px;
+                transform: scaleX(-1);
+            }
+        }
+
+        @keyframes asas-meio {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        @keyframes asas-cima {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 400px) {
+            .banner-top {
+                max-width: 320px;
+            }
+
+            .hakuna-matata {
+                font-size: 1.2rem;
+                letter-spacing: 3px;
+            }
+
+            .celebration-text h2 {
+                font-size: 0.85rem;
+                letter-spacing: 2px;
+            }
+
+            .intro-message {
+                font-size: 0.95rem;
+                padding: 0 10px;
+            }
+
+            .kpi-small {
+                max-width: 140px;
+            }
+
+            .kpi-large {
+                max-width: 280px;
+            }
+
+            .kpi-value {
+                font-size: 0.85rem;
+            }
+
+            .scene {
+                height: 350px;
+            }
+        }
+
+        /* Botões */
+        .botoes-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-whatsapp {
+            background: linear-gradient(145deg, #25D366 0%, #128C7E 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-whatsapp:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        .btn-avisos {
+            background: linear-gradient(145deg, #D4A03D 0%, #B8860B 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(212, 160, 61, 0.4);
+        }
+
+        .btn-avisos:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 160, 61, 0.5);
+        }
+
+        .btn-curiosidade {
+            background: linear-gradient(145deg, #8B4513 0%, #5D2E0C 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(139, 69, 19, 0.4);
+        }
+
+        .btn-curiosidade:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(139, 69, 19, 0.5);
+        }
+
+        .btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Botão de Música */
+        .music-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, #D4A03D 0%, #B8860B 100%);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(212, 160, 61, 0.5);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .music-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(212, 160, 61, 0.6);
+        }
+
+        .music-toggle svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .music-toggle.muted {
+            background: linear-gradient(145deg, #888 0%, #555 100%);
+            box-shadow: 0 4px 15px rgba(100, 100, 100, 0.5);
+        }
+
+        .music-toggle .icon-on,
+        .music-toggle.muted .icon-off {
+            display: block;
+        }
+
+        .music-toggle .icon-off,
+        .music-toggle.muted .icon-on {
+            display: none;
+        }
+
+        /* Texto flutuante do áudio */
+        .music-hint {
+            position: fixed;
+            bottom: 75px;
+            right: 10px;
+            background: rgba(139, 69, 19, 0.9);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 20px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 600;
+            z-index: 1000;
+            animation: pulse 2s ease-in-out infinite;
+            white-space: nowrap;
+        }
+
+        .music-hint::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            right: 20px;
+            border-left: 6px solid transparent;
+            border-right: 6px solid transparent;
+            border-top: 6px solid rgba(139, 69, 19, 0.9);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(0.98); }
+        }
+
+        .music-hint.hidden {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Música de fundo -->
+    <audio id="musica-fundo" loop>
+        <source src="musica/hakuna.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Zazu Voando -->
+    <div class="zazu-container">
+        <img src="imagens/zazu_asa_meio.png" alt="Zazu" class="zazu-asa-meio">
+        <img src="imagens/zazu_asa_pra_cima.png" alt="Zazu" class="zazu-asa-cima">
+    </div>
+
+    <div class="container">
+        <!-- Banner -->
+        <img src="imagens/banner.png" alt="Liam Gabriel - 1 aninho" class="banner-top">
+
+        <!-- Hakuna Matata Title -->
+        <!-- <h1 class="hakuna-matata">HAKUNA MATATA!</h1> -->
+
+        <!-- Scene with Characters and Bushes -->
+        <div class="scene">
+            <img src="imagens/arbusto.png" alt="Arbusto fundo" class="arbusto-back">
+            <img src="imagens/arbusto.png" alt="Arbusto" class="arbusto-front">
+            <img src="imagens/personagens.png" alt="Simba e amigos" class="personagens">
+        </div>
+
+        <!-- Intro Message -->
+        <p class="intro-message">Meu aniversário está chegando e você está convidado para comemorar este dia especial.</p>
+
+        <!-- Celebration Text -->
+        <div class="celebration-text">
+            <h2>VAMOS COMEMORAR JUNTOS!</h2>
+        </div>
+
+        <!-- KPIs -->
+        <div class="kpis-container">
+            <div class="kpis-row">
+                <div class="kpi kpi-small">
+                    <div class="kpi-label">Quando</div>
+                    <div class="kpi-value">Domingo, 8 de março</div>
+                </div>
+                <div class="kpi kpi-small">
+                    <div class="kpi-label">Horário</div>
+                    <div class="kpi-value">A partir das 16h</div>
+                </div>
+            </div>
+            <div class="kpi kpi-large">
+                <div class="kpi-label">Local</div>
+                <div class="kpi-value">Panda Kids, Bairro José Paulino | Rua Paraíso</div>
+            </div>
+        </div>
+
+        <!-- Botões -->
+        <div class="botoes-container">
+            <a href="https://wa.me/5582993218212p?text=Recebi%20seu%20convite%20e%20quero%20confirmar%20minha%20presen%C3%A7a%2C%20obrigado!" target="_blank" class="btn btn-whatsapp">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+                </svg>
+                Confirmar Presença
+            </a>
+            <a href="avisos.html" class="btn btn-avisos">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
+                </svg>
+                Avisos Importantes
+            </a>
+            <button onclick="mostrarCuriosidade()" class="btn btn-curiosidade">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17h2v-2h-2v2zm2.07-7.75l-.9.92C11.45 12.9 11 13.5 11 15h2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+                </svg>
+                Curiosidade
+            </button>
+        </div>
+
+        <!-- Hakuna Matata Final -->
+        <p class="hakuna-matata" style="margin-top: 30px; margin-bottom: 0;">HAKUNA MATATA!</p>
+
+    </div>
+
+    <script>
+        // Add sparkle effects
+        function createSparkle() {
+            const container = document.querySelector('.container');
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * 100 + '%';
+            sparkle.style.top = Math.random() * 100 + '%';
+            sparkle.style.animationDelay = Math.random() * 2 + 's';
+            container.appendChild(sparkle);
+
+            setTimeout(() => sparkle.remove(), 2000);
+        }
+
+        // Create sparkles periodically
+        setInterval(createSparkle, 500);
+
+        // Música de fundo
+        const musica = document.getElementById('musica-fundo');
+        const musicToggle = document.getElementById('music-toggle');
+        const musicHint = document.getElementById('music-hint');
+        musica.volume = 0.5;
+
+        function toggleMusica() {
+            if (musica.paused) {
+                musica.play().then(() => {
+                    musicToggle.classList.remove('muted');
+                    musicHint.classList.add('hidden');
+                }).catch(() => {});
+            } else {
+                musica.pause();
+                musicToggle.classList.add('muted');
+            }
+        }
+
+        // Modal de Curiosidade
+        function mostrarCuriosidade() {
+            Swal.fire({
+                title: '🦁 Você sabia?',
+                html: '<p style="text-align: left; line-height: 1.8; color: #8B4513;">O correto em suaíli é <strong>Hakuna Matata</strong>, que significa "sem problemas" ou "sem preocupações", mas no Brasil, a Disney adaptou para <strong>Hatuna Matata</strong> na dublagem de "O Rei Leão" para evitar a sonoridade da palavra "Ku", mantendo o sentido original da música e dos personagens.</p>',
+                confirmButtonText: 'Que legal!',
+                confirmButtonColor: '#D4A03D',
+                background: 'linear-gradient(145deg, #FFF8E7 0%, #FAEDDD 100%)',
+                color: '#8B4513',
+                showClass: {
+                    popup: 'animate__animated animate__fadeInDown'
+                },
+                hideClass: {
+                    popup: 'animate__animated animate__fadeOutUp'
+                }
+            });
+        }
+    </script>
+
+    <!-- Texto e Botão de Música -->
+    <div id="music-hint" class="music-hint">Toque aqui</div>
+    <button id="music-toggle" class="music-toggle muted" onclick="toggleMusica()">
+        <svg class="icon-on" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+        <svg class="icon-off" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+        </svg>
+    </button>
+
+    <!-- Savana Footer -->
+    <div class="savana-footer">
+        <img src="imagens/savana.png" alt="Savana">
+    </div>
+</body>
+
+</html>

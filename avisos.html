@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Avisos - Festinha do Liam Gabriel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            min-height: 100vh;
+            background: #C8ECFB;
+            background: linear-gradient(180deg, rgba(200, 236, 251, 1) 0%, rgba(250, 237, 221, 1) 100%);
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .titulo {
+            font-family: 'Playfair Display', serif;
+            font-weight: 400;
+            font-size: 1.8rem;
+            color: #D4A03D;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+        }
+
+        .aviso-card {
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 245, 225, 0.9) 100%);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 20px;
+            border: 2px dashed #D4A03D;
+            text-align: left;
+        }
+
+        .aviso-card h2 {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #D4A03D;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .aviso-card p {
+            font-size: 1rem;
+            color: #8B4513;
+            line-height: 1.7;
+            font-weight: 600;
+        }
+
+        .aviso-card .destaque {
+            background: rgba(212, 160, 61, 0.15);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .aviso-card .destaque p {
+            font-weight: 700;
+            color: #B8860B;
+        }
+
+        .btn-voltar {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-family: 'Nunito', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            text-decoration: none;
+            background: linear-gradient(145deg, #D4A03D 0%, #B8860B 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(212, 160, 61, 0.4);
+            transition: all 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .btn-voltar:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(212, 160, 61, 0.5);
+        }
+
+        .btn-voltar svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+        }
+
+        /* Decoração */
+        .decoracao {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 400px) {
+            .titulo {
+                font-size: 1.4rem;
+            }
+
+            .aviso-card {
+                padding: 20px;
+            }
+
+            .aviso-card h2 {
+                font-size: 1rem;
+            }
+
+            .aviso-card p {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="decoracao">🎁</div>
+        <h1 class="titulo">AVISOS IMPORTANTES</h1>
+
+        <div class="aviso-card">
+            <h2>🎀 Sobre os Presentinhos</h2>
+            <p>
+                Ficamos muito felizes com a sua presença na festinha do Liam Gabriel!
+                Se você deseja presenteá-lo, gostaríamos de sugerir algumas opções que serão muito úteis nessa fase de crescimento.
+            </p>
+            <div class="destaque">
+                <p>Sugestões: roupinhas, sapatinhos, acessórios e itens de uso diário</p>
+            </div>
+            <p style="margin-top: 15px;">
+                Preferimos evitar brinquedos por enquanto, pois o Liam ainda está muito novinho.
+                Mas o mais importante é a sua presença e carinho!
+            </p>
+        </div>
+
+        <a href="index.html" class="btn-voltar">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Voltar ao Convite
+        </a>
+    </div>
+</body>
+
+</html>
